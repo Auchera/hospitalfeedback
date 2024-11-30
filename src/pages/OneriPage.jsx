@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Stepper, Step, StepLabel, Button, TextField, MenuItem, Select, FormControl, InputLabel, TextareaAutosize, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { ArrowForward, ArrowBack, CheckCircle } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { Checkbox, FormControlLabel } from '@mui/material';
+
+
 
 const OneriPage = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -79,29 +82,58 @@ const OneriPage = () => {
   };
 return (
     <div className="bg-[#243240] text-smoke-white h-screen flex flex-col items-center justify-center font-roboto">
-      <h1 className="text-white text-3xl mb-4">RACCOON CITY ÖZEL HASTANESİ</h1>
-      <img src="/images/hastaneicon.png" alt="Hastane Logo" className="mx-auto mb-4" />
+      <h1 className="text-white text-3xl" >RACCOON CITY ÖZEL HASTANESİ</h1>
+      <h2 className='text-slate-400 text-3xl'>Öneri Formu</h2>
+      <img src="/images/hastaneicon.png" alt="Hastane Logo" className="mx-auto " />
 
-      <Stepper activeStep={activeStep} alternativeLabel className="w-4/5 mb-6">
+      <Stepper activeStep={activeStep} alternativeLabel className="w-4/5">
         {steps.map((step, index) => (
           <Step key={index}>
             <StepLabel
               sx={{
-                color: activeStep >= index ? '#4CAF50' : '#B0B0B0',
+                '& .MuiStepLabel-label': {
+                  color: activeStep >= index ? '#ececec' : '#cccccc', // Aktifse beyaz, değilse gri
+                },
               }}
             >
+            
               {step}
             </StepLabel>
           </Step>
         ))}
       </Stepper>
 
+      <div className="w-full flex flex-col items-center mt-6">
+      {/* Çizgi */}
+      <div className="w-4/5 h-[1px] bg-gray-300 mb-4"></div>
+
+      {/* Açıklama */}
+      <p className="text-lg text-white text-center mb-2">
+        Değerlendirmeniz ile ilgili sizlere dönüş sağlamamızı istiyorsanız lütfen
+        iletişim bilgilerinizi giriniz. Kişisel bilgilerinizi paylaşmak istemiyorsanız 
+        kutucuğu işaretleyerek devam ediniz.
+      </p>
+
+      {/* Checkbox */}
+      <FormControlLabel
+        control={<Checkbox sx={{ color: '#ececec' }} />}
+        label={
+          <span className="text-lg text-white text-decoration-underline">
+            Kişisel bilgilerimi paylaşmak istemiyorum.
+          </span>
+        }
+      />
+    </div>
+
+
+
+
       <div className="flex w-4/5 mt-6 gap-6">
 
         {activeStep === 0 && (
           <div className="w-full">
             <div className="flex gap-6">
-              <div className="w-1/2">
+              <div className="w-1/2 flex flex-col gap-5">
                 <TextField
                   label="Adınız"
                   fullWidth
@@ -120,6 +152,25 @@ return (
                   InputLabelProps={{
                     style: { color: 'white' },
                   }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: 'white',
+                        },
+                        '&:hover fieldset': {
+                            borderColor: 'gray',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: 'white',
+                        },
+                    },
+                    '& .MuiInputLabel-root': {
+                        color: 'white',
+                    },
+                    '& .MuiFormHelperText-root': {
+                        color: 'white',
+                    },
+                }}
                 />
                 <TextField
                   label="Email"
@@ -136,27 +187,55 @@ return (
                   InputLabelProps={{
                     style: { color: 'white' },
                   }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: 'white',
+                        },
+                        '&:hover fieldset': {
+                            borderColor: 'gray',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: 'white',
+                        },
+                    },
+                    '& .MuiInputLabel-root': {
+                        color: 'white',
+                    },
+                    '& .MuiFormHelperText-root': {
+                        color: 'white',
+                    },
+                }}
                 />
-                <FormControl fullWidth className="mb-4" error={!!errors.status} required>
-                  <InputLabel sx={{ color: 'white' }}>Statü</InputLabel>
-                  <Select
-                    name="status"
-                    value={formData.status}
-                    onChange={handleChange}
-                    sx={{
-                      fontSize: '14px',
-                      color: 'white',
-                      borderColor: 'white',
-                    }}
-                  >
+               
+               <FormControl fullWidth className="mb-4" error={!!errors.status} required>
+                <InputLabel sx={{ color: 'white' }}>Statü</InputLabel>
+                 <Select
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  sx={{
+                    color: 'white', 
+                     '& .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white', 
+                    },
+                     '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'gray', 
+                    },
+                     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white', 
+                     },
+                   }}
+                   >
                     <MenuItem value="Hasta">Hasta</MenuItem>
                     <MenuItem value="Hasta Yakını">Hasta Yakını</MenuItem>
-                    <MenuItem value="Çalışan">Çalışan</MenuItem>
-                    <MenuItem value="Ziyaretçi">Ziyaretçi</MenuItem>
+                     <MenuItem value="Çalışan">Çalışan</MenuItem>
+                   <MenuItem value="Ziyaretçi">Ziyaretçi</MenuItem>
                   </Select>
                 </FormControl>
+
               </div>
-              <div className="w-1/2">
+              <div className="w-1/2 flex flex-col gap-5">
                 <TextField
                   label="Soyadınız"
                   fullWidth
@@ -175,6 +254,26 @@ return (
                   InputLabelProps={{
                     style: { color: 'white' },
                   }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: 'white',
+                        },
+                        '&:hover fieldset': {
+                            borderColor: 'gray',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: 'white',
+                        },
+                    },
+                    '& .MuiInputLabel-root': {
+                        color: 'white',
+                    },
+                    '& .MuiFormHelperText-root': {
+                        color: 'white',
+                    },
+                }}
+                  
                 />
                 <TextField
                   label="Telefon"
@@ -194,6 +293,25 @@ return (
                   InputLabelProps={{
                     style: { color: 'white' },
                   }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: 'white',
+                        },
+                        '&:hover fieldset': {
+                            borderColor: 'gray',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: 'white',
+                        },
+                    },
+                    '& .MuiInputLabel-root': {
+                        color: 'white',
+                    },
+                    '& .MuiFormHelperText-root': {
+                        color: 'white',
+                    },
+                }}
                 />
               </div>
             </div>
@@ -205,7 +323,7 @@ return (
           <div className="w-full">
             <div className="flex gap-6">
 
-              <div className="w-1/2">
+              <div className="w-1/2 flex flex-col gap-5">
                 <FormControl fullWidth className="mb-4" required>
                   <InputLabel sx={{ color: 'white' }}>Poliklinik</InputLabel>
                   <Select
@@ -213,10 +331,17 @@ return (
                     value={formData.poliklinik}
                     onChange={handleChange}
                     sx={{
-                      fontSize: '14px',
-                      color: 'white',
-                      borderColor: 'white',
-                    }}
+                      color: 'white', 
+                       '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'white', 
+                      },
+                       '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'gray', 
+                      },
+                       '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'white', 
+                       },
+                     }}
                   >
                     <MenuItem value="Poliklinik 1">Poliklinik 1</MenuItem>
                     <MenuItem value="Poliklinik 2">Poliklinik 2</MenuItem>
@@ -234,17 +359,24 @@ return (
                     value={formData.sebep}
                     onChange={handleChange}
                     sx={{
-                      fontSize: '14px',
-                      color: 'white',
-                      borderColor: 'white',
-                    }}
+                      color: 'white', 
+                       '& .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'white', 
+                      },
+                       '&:hover .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'gray', 
+                      },
+                       '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'white', 
+                       },
+                     }}
                   >
                     <MenuItem value="Kontrol">Kontrol</MenuItem>
                     <MenuItem value="İlaç">İlaç</MenuItem>
                   </Select>
                 </FormControl>
               </div>
-              <div className="w-1/2">
+              <div className="w-1/2 flex flex-col gap-5">
                 <TextField
                   label="Personel Bilgisi"
                   fullWidth
@@ -260,6 +392,25 @@ return (
                   InputLabelProps={{
                     style: { color: 'white' },
                   }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: 'white',
+                        },
+                        '&:hover fieldset': {
+                            borderColor: 'gray',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: 'white',
+                        },
+                    },
+                    '& .MuiInputLabel-root': {
+                        color: 'white',
+                    },
+                    '& .MuiFormHelperText-root': {
+                        color: 'white',
+                    },
+                }}
                 />
                 <TextareaAutosize
                   name="detayliBilgi"
