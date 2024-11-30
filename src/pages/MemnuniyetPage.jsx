@@ -92,7 +92,7 @@ return (
             <StepLabel
               sx={{
                 '& .MuiStepLabel-label': {
-                  color: activeStep >= index ? '#ececec' : '#cccccc', // Aktifse beyaz, değilse gri
+                  color: activeStep >= index ? '#ececec' : '#cccccc', 
                 },
               }}
             >
@@ -104,17 +104,14 @@ return (
       </Stepper>
 
       <div className="w-full flex flex-col items-center mt-6">
-      {/* Çizgi */}
       <div className="w-4/5 h-[1px] bg-gray-300 mb-4"></div>
 
-      {/* Açıklama */}
       <p className="text-lg text-white text-center mb-2">
         Değerlendirmeniz ile ilgili sizlere dönüş sağlamamızı istiyorsanız lütfen
         iletişim bilgilerinizi giriniz. Kişisel bilgilerinizi paylaşmak istemiyorsanız 
         kutucuğu işaretleyerek devam ediniz.
       </p>
 
-      {/* Checkbox */}
       <FormControlLabel
         control={<Checkbox sx={{ color: '#ececec' }} />}
         label={
